@@ -1,30 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
 </head>
-<body>
-  <form id="form">
-    <label for="Expense">Expense Amount</label>
-    <input type="text" id="Expense" name="Amount">
-    <label for="Description">Choose Description</label>
-    <input type="text" id="Description" name="Description">
-    <label for="email">Enter your email</label>
-    <input type="text" id="email" name="email">
-    <label for="category">Choose the category</label>
-    <select id="category" name="category">
-      <option id="Movie">Movie</option>
-      <option id="School" selected>School </option>
-      <option id="Hotel">Hotel</option>
-      <option id="Party">Party</option>
-    </select>
-    <input type="submit" value="add expense" id="submit" name="submit">
-    <li id="storeli"></li>
+
+<body
+    style="background:url(file:///C:/Users/HP/Desktop/scott-graham-5fNmWej4tAA-unsplash.jpg); background-attachment: fixed; background-size: cover; background-repeat: no-repeat;font-size: 19px;">
+  <br>
+    <h1 style="text-align: center; background-color: lightgray; color:blue;">Expense Tracker</h1><br>
+    <form id="form" novalidate>
+        <div class="row  g-2">
+
+            <div class="input-group ">
+                <div class="input-group-text bg-primary" style="color: white;">Amount</div>
+                <div class="form-floating">
+                    <input type="number" class="form-control" id="Expense" name="Amount" placeholder="abc" required>
+                    <label for="Expense" class="form-label " style="text-align: center;">Expense Amount</label>
+                </div>
+
+                <div class="input-group-text bg-primary" style="color: white;">Rupees</div>
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control " id="Description" name="Description" placeholder="abc" required>
+                <label for="Description" class="form-label">Choose Description</label>
+            </div>
+            <div class="form-floating">
+                <input type="email" id="email" class="form-control" name="email" required placeholder="abc">
+                <label for="email" class="form-label">Enter your email</label>
+            </div>
+            <div class="row g-1">
+                <div class="input-group">
+                    <div class="input-group-text bg-primary" style="color:white;">Choose the category</div>
+                    <select id="category" class="form-select-lg col-10" name="category" required>
+                        <option id="Movie" style="text-align: center;">Movie</option>
+                        <option id="School" style="text-align: center;">School </option>
+                        <option id="Hotel" style="text-align: center;">Hotel</option>
+                        <option id="Party" style="text-align: center;">Party</option>
+                    </select>
+                </div>
     
-  
-  </form>
-  <script src="a.js"></script>
+            </div>
+            
+            <button id="button" class="btn btn-success btn-lg text-center" id="submit" name="submit">Submit</button>
+            <div class="text-success bg-body-secondary" style="text-align: center;"><b>Inserted li Elements</b></div>
+            <ul class="list-group" id="storeli">
+                
+
+            </ul>
+        </div>
+
+
+
+    </form>
+    <script src="Expense Tracker.js"></script>
 </body>
+
 </html>
