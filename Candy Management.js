@@ -5,7 +5,8 @@ let description = document.getElementById('description');
 let price = document.getElementById('price');
 let quantity = document.getElementById('Quantity');
 form.addEventListener('submit', storedata);
-function storedata(e) {
+
+async function storedata(e) {
     e.preventDefault();
     let buyone = document.createElement('input');
     buyone.type = "button";
@@ -26,73 +27,81 @@ function storedata(e) {
     li.appendChild(buythree);
     li.classList = "list-group-item list-group-item-action";
     ul.appendChild(li);
-
     let data = {
         name: name.value,
         description: description.value,
         price: price.value,
         quantity: quantity.value,
     }
-    axios.post('https://crudcrud.com/api/8e3e515640a34487b9f31f0ef48aad8a/QuantityManager', data);
+    axios.post('https://crudcrud.com/api/f40e0d51fd624fb3b23a921404868dc3/QuantityManager', data);
 
-    buyone.onclick = () => {
-        axios.get('https://crudcrud.com/api/8e3e515640a34487b9f31f0ef48aad8a/QuantityManager').then((response) => {
-            for (let i = 0; i < response.data.length; i++) {
-                if (response.data[i].name == name.value) {
+    buyone.onclick = async function deductone() {
+        let getdata = await axios.get('https://crudcrud.com/api/f40e0d51fd624fb3b23a921404868dc3/QuantityManager');
+        try {
+            for (let i = 0; i < getdata.data.length; i++) {
+                if (getdata.data[i].name == name.value) {
                     data.quantity = data.quantity - 1;
                     if (data.quantity < 0) {
                         alert('you do not have sufficient stock')
                     }
                     else {
-                        axios.put('https://crudcrud.com/api/8e3e515640a34487b9f31f0ef48aad8a/QuantityManager/' + response.data[i]._id, data);
+                        await axios.put('https://crudcrud.com/api/f40e0d51fd624fb3b23a921404868dc3/QuantityManager/' + getdata.data[i]._id, data);
                     }
-
                 }
             }
-        })
-    }
-    buytwo.onclick = () => {
+        } catch (error) {
+            console.log(error);
 
-        axios.get('https://crudcrud.com/api/8e3e515640a34487b9f31f0ef48aad8a/QuantityManager').then((response) => {
-            for (let i = 0; i < response.data.length; i++) {
-                if (response.data[i].name == name.value) {
+        }
+    }
+
+    buytwo.onclick = async function deducttwo() {
+        let getdata = await axios.get('https://crudcrud.com/api/f40e0d51fd624fb3b23a921404868dc3/QuantityManager');
+        try {
+            for (let i = 0; i < getdata.data.length; i++) {
+                if (getdata.data[i].name == name.value) {
                     data.quantity = data.quantity - 2;
                     if (data.quantity < 0) {
                         alert('you do not have sufficient stock')
                     }
                     else {
-                        axios.put('https://crudcrud.com/api/8e3e515640a34487b9f31f0ef48aad8a/QuantityManager/' + response.data[i]._id, data);
+                        await axios.put('https://crudcrud.com/api/f40e0d51fd624fb3b23a921404868dc3/QuantityManager/' + getdata.data[i]._id, data);
                     }
-
                 }
             }
-        })
-
-    }
-    buythree.onclick = () => {
-
-        axios.get('https://crudcrud.com/api/8e3e515640a34487b9f31f0ef48aad8a/QuantityManager').then((response) => {
-            for (let i = 0; i < response.data.length; i++) {
-                data.quantity = data.quantity - 2;
-                if (modify.quantity < 0) {
-                    alert('you do not have sufficient stock')
-                }
-                else {
-                    axios.put('https://crudcrud.com/api/8e3e515640a34487b9f31f0ef48aad8a/QuantityManager/' + response.data[i]._id, data);
-                }
-            }
+        } catch (error) {
+            console.log(error);
         }
-        )
     }
 
+    buythree.onclick = async function deductthree() {
+        let getdata = await axios.get('https://crudcrud.com/api/f40e0d51fd624fb3b23a921404868dc3/QuantityManager');
+        try {
+            for (let i = 0; i < getdata.data.length; i++) {
+                if (getdata.data[i].name == name.value) {
+                    data.quantity = data.quantity - 3;
+                    if (data.quantity < 0) {
+                        alert('you do not have sufficient stock')
+                    }
+                    else {
+                        await axios.put('https://crudcrud.com/api/f40e0d51fd624fb3b23a921404868dc3/QuantityManager/' + getdata.data[i]._id, data);
+                    }
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }
 
 
 document.addEventListener('DOMContentLoaded', showdata);
-function showdata(e) {
-    e.preventDefault();
-    axios.get('https://crudcrud.com/api/8e3e515640a34487b9f31f0ef48aad8a/QuantityManager').then((response) => {
 
+async function showdata(e) {
+    e.preventDefault();
+
+    let response = await axios.get('https://crudcrud.com/api/f40e0d51fd624fb3b23a921404868dc3/QuantityManager');
+    try {
         for (let i = 0; i < response.data.length; i++) {
             let buyone = document.createElement('input');
             buyone.type = "button";
@@ -120,38 +129,41 @@ function showdata(e) {
                 quantity: response.data[i].quantity,
             }
 
-            buyone.onclick = () => {
-              modify.quantity=modify.quantity-1;
+            buyone.onclick = async () => {
+                modify.quantity = modify.quantity - 1;
                 if (modify.quantity < 0) {
                     alert('you do not have sufficient stock')
                 }
                 else {
-                    axios.put('https://crudcrud.com/api/8e3e515640a34487b9f31f0ef48aad8a/QuantityManager/' + response.data[i]._id, modify);
+                    await axios.put('https://crudcrud.com/api/f40e0d51fd624fb3b23a921404868dc3/QuantityManager/' + response.data[i]._id, modify);
                 }
             }
 
-
-            buytwo.onclick = () => {
-               modify.quantity=modify.quantity-2;
+            buytwo.onclick = async () => {
+                modify.quantity = modify.quantity - 2;
                 if (modify.quantity < 0) {
                     alert('you do not have sufficient stock')
                 }
                 else {
-                    axios.put('https://crudcrud.com/api/8e3e515640a34487b9f31f0ef48aad8a/QuantityManager/' + response.data[i]._id, modify);
+                    await axios.put('https://crudcrud.com/api/f40e0d51fd624fb3b23a921404868dc3/QuantityManager/' + response.data[i]._id, modify);
                 }
             }
-            buythree.onclick = () => {
-                modify.quantity=modify.quantity-3;
+
+            buythree.onclick = async () => {
+                modify.quantity = modify.quantity - 3;
                 if (modify.quantity < 0) {
                     alert('you do not have sufficient stock')
                 }
                 else {
-                    axios.put('https://crudcrud.com/api/8e3e515640a34487b9f31f0ef48aad8a/QuantityManager/' + response.data[i]._id, modify);
+                    await axios.put('https://crudcrud.com/api/f40e0d51fd624fb3b23a921404868dc3/QuantityManager/' + response.data[i]._id, modify);
                 }
             }
 
         }
 
-
-    })
+    }
+    catch (error) {
+        console.log(error);
+    }
 }
+
